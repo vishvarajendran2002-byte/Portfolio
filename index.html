@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishva Rajendran | Mechanical Design Engineer — TransM Al-Ojaimi Group</title>
+
+    <!-- Tailwind CSS with Custom Cyber-Obsidian Theme Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidianBg: '#0A0D0E',
+                        obsidianCard: '#12181A',
+                        obsidianBorder: '#1F2A2E',
+                        electricEmerald: '#00FF87',
+                        deepMint: '#00B862',
+                        cyanHighlight: '#00E5FF',
+                        titaniumGold: '#FFD700',
+                        titaniumText: '#E2E8F0'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2.5s infinite ease-in-out',
+                        'neon-border': 'neonBorder 4s linear infinite',
+                        'float-slow': 'floatSlow 6s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(0,255,135,0.25)' },
+                            '50%': { boxShadow: '0 0 35px rgba(0,255,135,0.65)' }
+                        },
+                        floatSlow: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Three.js 3D Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Canvas Confetti Library for Submit Effect -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* Base Global Styling */
+        body {
+            background-color: #0A0D0E;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            cursor: default;
+        }
+
+        /* Cyber Liquid Custom Cursor */
+        #custom-cursor {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #00FF87;
+            border-radius: 50%;
+            z-index: 9999;
+            box-shadow: 0 0 15px #00FF87, 0 0 30px #00E5FF;
+            transition: transform 0.04s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        #custom-cursor-follower {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 38px;
+            height: 38px;
+            border: 1.5px solid rgba(0, 255, 135, 0.6);
+            border-radius: 50%;
+            z-index: 9998;
+            transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translate(-50%, -50%);
+        }
+
+        /* Frosted Glassmorphism Containers */
+        .glass-card {
+            background: rgba(18, 24, 26, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 135, 0.15);
+        }
+
+        .glass-card-hover {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card-hover:hover {
+            border-color: rgba(0, 255, 135, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -15px rgba(0, 255, 135, 0.2);
+        }
+
+        /* Luminous Gradient Text */
+        .gradient-emerald-text {
+            background: linear-gradient(135deg, #00FF87 0%, #00E5FF 60%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 18px rgba(0, 255, 135, 0.45);
+        }
+
+        /* Cyber Matrix Mesh Background Grid */
+        .bg-cyber-grid {
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 135, 0.08) 0%, transparent 60%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0D0E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1F2A2E;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00FF87;
+        }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+        .reveal.revealed { opacity: 1; transform: none; }
+        .tilt-card.revealed { transition: opacity .7s, transform .15s ease-out, border-color .3s; }
+
+        /* Active nav underline */
+        .nav-link::after { content: ''; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0; background: #00FF87; box-shadow: 0 0 8px #00FF87; transition: width .3s; }
+        .nav-link.active { color: #00FF87; }
+        .nav-link.active::after { width: 100%; }
+
+        /* Cursor states */
+        body.cursor-hover #custom-cursor-follower { width: 60px; height: 60px; border-color: #00E5FF; background: rgba(0,229,255,0.08); }
+        #custom-cursor-follower { transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), width .25s, height .25s, background .25s, border-color .25s; }
+        @media (hover: none), (pointer: coarse) { #custom-cursor, #custom-cursor-follower { display: none; } }
+
+        /* Pop animations */
+        @keyframes modalPop { from { opacity: 0; transform: scale(.94) translateY(12px); } to { opacity: 1; transform: none; } }
+        .modal-pop { animation: modalPop .35s cubic-bezier(.16,1,.3,1); }
+        @keyframes cardPop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+        .card-pop { animation: cardPop .4s cubic-bezier(.16,1,.3,1); }
+        @keyframes toastIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: none; } }
+        .toast-in { animation: toastIn .35s cubic-bezier(.16,1,.3,1); }
+
+        /* Click ripple */
+        .ripple { position: fixed; pointer-events: none; z-index: 9997; width: 8px; height: 8px; border-radius: 50%; border: 2px solid #00FF87; transform: translate(-50%,-50%); animation: rippleOut .6s ease-out forwards; }
+        @keyframes rippleOut { to { width: 70px; height: 70px; opacity: 0; } }
+
+        #cmd-list li.selected { background: rgba(0,255,135,0.12); color: #00FF87; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .modal-pop, .card-pop, .toast-in, .ripple { animation: none; }
+        }
+
+        /* 3D Tilt Card Container */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-electricEmerald selection:text-black">
+
+    <!-- Custom Pointer Cursor -->
+    <div id="custom-cursor"></div>
+    <div id="custom-cursor-follower"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] z-[10000] bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold" style="width:0%"></div>
+
+    <!-- Floating Back-To-Top with progress ring -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'}); playAudio('click');" title="Back to top" class="fixed bottom-6 right-6 z-[60] w-12 h-12 rounded-full glass-card border border-electricEmerald/40 text-electricEmerald flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110">
+        <svg class="absolute inset-0 -rotate-90" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="rgba(0,255,135,0.15)" stroke-width="2.5"/><circle id="btt-ring" cx="24" cy="24" r="21" fill="none" stroke="#00FF87" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="131.95" stroke-dashoffset="131.95"/></svg>
+        <i class="fa-solid fa-arrow-up text-sm relative"></i>
+    </button>
+
+    <!-- Command Palette (Ctrl/⌘ + K) -->
+    <div id="cmd-palette" class="fixed inset-0 z-[9995] hidden bg-obsidianBg/80 backdrop-blur-sm items-start justify-center pt-[15vh] px-4">
+        <div class="modal-pop glass-card w-full max-w-lg rounded-2xl border border-electricEmerald/40 shadow-2xl overflow-hidden font-mono">
+            <div class="flex items-center gap-3 px-4 border-b border-electricEmerald/20">
+                <i class="fa-solid fa-terminal text-electricEmerald text-sm"></i>
+                <input id="cmd-input" type="text" autocomplete="off" placeholder="Type a command or section..." class="flex-1 bg-transparent py-4 text-sm text-white focus:outline-none">
+                <kbd class="text-[10px] text-gray-400 border border-gray-600 rounded px-1.5 py-0.5">ESC</kbd>
+            </div>
+            <ul id="cmd-list" class="max-h-80 overflow-y-auto p-2 text-sm"></ul>
+            <div class="px-4 py-2 border-t border-electricEmerald/20 text-[10px] text-gray-500 flex gap-4"><span>↑↓ navigate</span><span>↵ select</span><span>? shortcuts</span></div>
+        </div>
+    </div>
+
+    <!-- Floating Dynamic Toast Notifications -->
+    <div id="toast-container" class="fixed top-24 right-5 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- MAIN NAVBAR HEADER -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 glass-card rounded-b-2xl px-6 my-2 border-t-0 shadow-2xl">
+                
+                <!-- Brand / Name Header -->
+                <a href="#hero" class="flex items-center space-x-3 group" onclick="playAudio('click')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-deepMint via-electricEmerald to-cyanHighlight flex items-center justify-center text-obsidianBg font-extrabold text-xl shadow-lg shadow-electricEmerald/20 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
+                    <div>
+                        <span class="text-lg font-extrabold tracking-tight text-white block leading-none">VISHVA <span class="gradient-emerald-text">RAJENDRAN ⚡</span></span>
+                        <span class="text-[10px] font-mono tracking-widest text-electricEmerald/90 uppercase">Design Engineer | TransM Al-Ojaimi Group</span>
+                    </div>
+                </a>
+
+                <!-- Nav Items (Desktop) -->
+                <nav class="hidden lg:flex items-center space-x-7 text-xs font-mono uppercase tracking-wider">
+                    <a href="#hero" class="nav-link relative text-gray-300 hover:text-electricEmerald transition-colors" onclick="playAudio('hover')">Home</a>
+                    <a href="#cad-studio" class="nav-link relative text-gray-300 hover:text-electricEmerald transition-colors" onclick="playAudio('hover')">3D CAD Lab</a>
+                    <a href="#team-synergy" class="nav-link relative text-gray-300 hover:text-electricEmerald transition-colors" onclick="playAudio('hover')">Team & Role</a>
+                    <a href="#reels" class="nav-link relative text-gray-300 hover:text-electricEmerald transition-colors" onclick="playAudio('hover')">Projects</a>
+                    <a href="#timeline" class="nav-link relative text-gray-300 hover:text-electricEmerald transition-colors" onclick="playAudio('hover')">Experience</a>
+                    <a href="#workbench" class="nav-link relative text-gray-300 hover:text-electricEmerald transition-colors" onclick="playAudio('hover')">Calculators</a>
+                    <a href="#skills" class="nav-link relative text-gray-300 hover:text-electricEmerald transition-colors" onclick="playAudio('hover')">Skills</a>
+                </nav>
+
+                <!-- Actions: Audio Switch & Contact CTA -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="openPalette()" class="hidden md:flex items-center gap-2 h-10 px-3 rounded-xl glass-card text-gray-300 hover:text-electricEmerald text-[11px] font-mono transition-all" title="Quick navigation">
+                        <i class="fa-solid fa-magnifying-glass text-electricEmerald"></i><kbd class="border border-gray-600 rounded px-1.5">Ctrl K</kbd>
+                    </button>
+                    <button id="sound-toggle-btn" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-electricEmerald hover:bg-obsidianCard transition-all" title="Toggle UI Audio Synthesis" onclick="toggleSound()">
+                        <i id="sound-icon" class="fa-solid fa-volume-xmark text-sm"></i>
+                    </button>
+
+                    <a href="#contact" onclick="playAudio('click')" class="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-bold text-obsidianBg bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold hover:scale-105 rounded-xl shadow-lg shadow-electricEmerald/25 transition-all">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> CONTACT VISHVA
+                    </a>
+
+                    <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-xl text-electricEmerald glass-card">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden max-w-7xl mx-auto px-4 pt-2 pb-4">
+            <div class="glass-card rounded-2xl p-5 space-y-3 flex flex-col border border-electricEmerald/30 font-mono text-sm shadow-2xl">
+                <a href="#hero" class="mobile-link px-4 py-2 text-gray-200 hover:bg-obsidianCard rounded-lg">Home</a>
+                <a href="#cad-studio" class="mobile-link px-4 py-2 text-gray-200 hover:bg-obsidianCard rounded-lg">3D CAD Lab</a>
+                <a href="#team-synergy" class="mobile-link px-4 py-2 text-gray-200 hover:bg-obsidianCard rounded-lg">Team Synergy & Role</a>
+                <a href="#reels" class="mobile-link px-4 py-2 text-gray-200 hover:bg-obsidianCard rounded-lg">Projects</a>
+                <a href="#timeline" class="mobile-link px-4 py-2 text-gray-200 hover:bg-obsidianCard rounded-lg">Experience Timeline</a>
+                <a href="#workbench" class="mobile-link px-4 py-2 text-electricEmerald hover:bg-obsidianCard rounded-lg">Engineering Calculators</a>
+                <a href="#skills" class="mobile-link px-4 py-2 text-gray-200 hover:bg-obsidianCard rounded-lg">Skills Matrix</a>
+                <a href="#contact" class="mobile-link px-4 py-2 text-center text-obsidianBg bg-electricEmerald rounded-xl font-bold">Contact Vishva</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-screen pt-32 pb-20 flex items-center justify-center bg-cyber-grid overflow-hidden">
+        <!-- Live Matrix Mesh Interactive Background Canvas -->
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-auto z-0"></canvas>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pointer-events-none">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Main Bio -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left pointer-events-auto">
+                    
+                    <!-- Location & Live Status Badge -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card text-electricEmerald text-xs font-mono border border-electricEmerald/40 shadow-lg shadow-electricEmerald/10">
+                        <span class="w-2.5 h-2.5 rounded-full bg-electricEmerald animate-ping"></span>
+                        <span>TransM Al-Ojaimi Group | Riyadh, Saudi Arabia 🇸🇦</span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-tight">
+                        Engineering High-Voltage <br>
+                        <span class="gradient-emerald-text glow-text">Machinery Systems</span>
+                    </h1>
+
+                    <!-- Dynamic Typing Text -->
+                    <div class="h-12 flex items-center justify-center lg:justify-start">
+                        <p class="text-base sm:text-lg text-emerald-200 font-mono">
+                            <span id="typing-text" class="text-electricEmerald border-r-2 border-electricEmerald pr-1 font-semibold"></span>
+                        </p>
+                    </div>
+
+                    <p class="text-sm sm:text-base text-gray-300 max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                        Mechanical Design Engineer at <strong class="text-white">TransM Al-Ojaimi Group</strong> in Riyadh. Contributing core CAD modeling, kinematic mechanism design, and structural FEA calculations as part of an elite engineering team producing automated <strong class="text-electricEmerald">H.V. & L.V. Transformer Winding Equipment</strong> and <strong class="text-cyanHighlight">Oil Duct Insulation Machinery</strong>.
+                    </p>
+
+                    <!-- Quick Key Metrics Grid -->
+                    <div class="grid grid-cols-3 gap-4 pt-4 pb-4 border-y border-electricEmerald/20 max-w-xl mx-auto lg:mx-0 font-mono">
+                        <div class="glass-card p-3 rounded-xl text-center">
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-electricEmerald">TEAM</span>
+                            <span class="text-[10px] text-gray-400 uppercase">Project Collaboration</span>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center">
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-cyanHighlight">H.V. / L.V.</span>
+                            <span class="text-[10px] text-gray-400 uppercase">Transformer Lines</span>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center">
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-titaniumGold">SolidWorks</span>
+                            <span class="text-[10px] text-gray-400 uppercase">3D Parametric CAD</span>
+                        </div>
+                    </div>
+
+                    <!-- Hero Action CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#cad-studio" onclick="playAudio('click')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-electricEmerald via-deepMint to-cyanHighlight text-obsidianBg font-extrabold text-sm shadow-xl shadow-electricEmerald/20 hover:scale-105 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cube text-base"></i>
+                            <span>INSPECT 3D MACHINERY LAB</span>
+                        </a>
+                        <a href="#team-synergy" onclick="playAudio('click')" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card text-electricEmerald font-mono font-bold text-sm hover:bg-obsidianCard border border-electricEmerald/40 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-users"></i>
+                            <span>VIEW TEAM ROLE & SYNERGY</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Right Side Hero Blueprint Display HUD -->
+                <div class="lg:col-span-5 flex justify-center pointer-events-auto">
+                    <div class="relative w-full max-w-md aspect-square rounded-3xl glass-card p-6 border border-electricEmerald/40 shadow-2xl overflow-hidden group">
+                        
+                        <div class="flex items-center justify-between pb-3 border-b border-electricEmerald/20 text-xs font-mono text-electricEmerald">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-microchip animate-spin"></i> CAD DIAGNOSTIC HUD</span>
+                            <span class="font-bold text-titaniumGold">ACTIVE TEAM PROJECT</span>
+                        </div>
+
+                        <!-- Animated Core Vector Graphics -->
+                        <div class="relative w-full h-[calc(100%-2.5rem)] flex items-center justify-center">
+                            <svg class="w-full h-full text-electricEmerald" viewBox="0 0 400 400" fill="none">
+                                <circle cx="200" cy="200" r="145" stroke="currentColor" stroke-width="1.5" stroke-dasharray="8 8" class="animate-[spin_35s_linear_infinite]" />
+                                <circle cx="200" cy="200" r="105" stroke="#00E5FF" stroke-width="2" opacity="0.8" />
+                                
+                                <g transform="translate(200,200)">
+                                    <rect x="-55" y="-55" width="110" height="110" rx="14" stroke="#00FF87" stroke-width="2" fill="rgba(0, 255, 135, 0.08)"/>
+                                    <circle r="34" stroke="#FFD700" stroke-width="2" fill="none"/>
+                                    <circle r="14" fill="#00FF87"/>
+                                    
+                                    <line x1="-130" y1="0" x2="130" y2="0" stroke="rgba(0,255,135,0.4)" stroke-width="1" stroke-dasharray="4 4" />
+                                    <line x1="0" y1="-130" x2="0" y2="130" stroke="rgba(0,255,135,0.4)" stroke-width="1" stroke-dasharray="4 4" />
+                                </g>
+
+                                <text x="25" y="45" fill="#00FF87" font-family="monospace" font-size="11">PROJECT: H.V. & L.V. WINDING RIG</text>
+                                <text x="25" y="65" fill="#00E5FF" font-family="monospace" font-size="10">DEPT: MACHINERY MANUFACTURING</text>
+                                <text x="25" y="85" fill="#FFD700" font-family="monospace" font-size="10">TransM AL-OJAIMI GROUP — RIYADH</text>
+                            </svg>
+
+                            <div class="absolute bottom-4 left-4 right-4 glass-card p-3 rounded-xl border border-electricEmerald/30 flex items-center justify-between text-xs font-mono">
+                                <span class="text-gray-300"><i class="fa-solid fa-users text-electricEmerald mr-1.5"></i> Collaborative Team Design</span>
+                                <span class="text-electricEmerald font-bold">IN PRODUCTION</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D HOLOGRAPHIC MACHINE INSPECTOR (Three.js Mechanical Assembly) -->
+    <section id="cad-studio" class="py-24 relative bg-obsidianCard/50 border-y border-electricEmerald/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="reveal text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card text-electricEmerald text-xs font-mono mb-3">
+                    <i class="fa-solid fa-cubes"></i> THREE.JS HOLOGRAPHIC CANVAS
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">Interactive 3D Machine Assembly ⚡</h2>
+                <p class="text-gray-400 text-sm font-mono mt-3">Interactive inspection of a Transformer HV/LV Winding Drum with live explosion slider, wireframe hologram modes, and click hotspot breakdown.</p>
+            </div>
+
+            <!-- Visualizer Main Container -->
+            <div class="glass-card rounded-3xl border border-electricEmerald/30 p-6 shadow-2xl relative">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    
+                    <!-- 3D Render Canvas -->
+                    <div class="lg:col-span-8 h-[440px] sm:h-[520px] bg-obsidianBg rounded-2xl relative overflow-hidden border border-electricEmerald/30">
+                        <canvas id="three-cad-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+                        
+                        <!-- Overlay Diagnostic Badge -->
+                        <div class="absolute top-4 left-4 glass-card px-3.5 py-2 rounded-xl border border-electricEmerald/30 text-xs font-mono text-gray-300">
+                            <i class="fa-solid fa-hand-pointer text-electricEmerald mr-1.5"></i> Orbit: Drag | Zoom: Scroll
+                        </div>
+
+                        <!-- Dynamic Tooltip Hotspot Overlay -->
+                        <div id="cad-hotspot-tooltip" class="absolute hidden glass-card px-3 py-2 rounded-xl border border-cyanHighlight text-xs font-mono text-white pointer-events-none shadow-xl">
+                            <span id="hotspot-title" class="text-electricEmerald font-bold block"></span>
+                            <span id="hotspot-desc" class="text-[11px] text-gray-300 block"></span>
+                        </div>
+
+                        <!-- Reset View Button -->
+                        <div class="absolute bottom-4 right-4 flex items-center gap-2">
+                            <button id="reset-cam-btn" class="glass-card hover:bg-obsidianCard text-xs font-mono text-electricEmerald px-3.5 py-2 rounded-xl border border-electricEmerald/30 transition-all" onclick="resetCamera(); playAudio('click');">
+                                <i class="fa-solid fa-rotate-left mr-1"></i> Reset Camera
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Slider & Controls -->
+                    <div class="lg:col-span-4 space-y-6 font-mono">
+                        
+                        <div class="border-b border-electricEmerald/20 pb-4">
+                            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-electricEmerald"></i> ASSEMBLY CONTROLS
+                            </h3>
+                            <p class="text-xs text-gray-400 mt-1">Real-time parametric CAD controls</p>
+                        </div>
+
+                        <!-- Explode Slider -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="text-gray-300">Explode Assembly</span>
+                                <span id="explode-val" class="text-electricEmerald font-bold">0%</span>
+                            </div>
+                            <input type="range" id="explode-slider" min="0" max="100" value="0" class="w-full accent-electricEmerald bg-obsidianBg rounded-lg h-2 cursor-pointer">
+                        </div>
+
+                        <!-- Rotation Speed Slider -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="text-gray-300">Drive Shaft RPM</span>
+                                <span id="speed-val" class="text-electricEmerald font-bold">15 RPM</span>
+                            </div>
+                            <input type="range" id="speed-slider" min="0" max="60" value="15" class="w-full accent-electricEmerald bg-obsidianBg rounded-lg h-2 cursor-pointer">
+                        </div>
+
+                        <!-- Render Mode Switcher -->
+                        <div class="space-y-2">
+                            <label class="text-xs text-gray-300 block">Render Mode</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button id="mode-solid" class="py-2.5 rounded-xl bg-electricEmerald text-obsidianBg font-bold text-xs shadow-md" onclick="setRenderMode('solid')">
+                                    Obsidian Solid
+                                </button>
+                                <button id="mode-wire" class="py-2.5 rounded-xl glass-card text-electricEmerald text-xs hover:bg-obsidianCard" onclick="setRenderMode('wireframe')">
+                                    Holo Wireframe
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Active Hotspot Inspection Details -->
+                        <div class="pt-4 border-t border-electricEmerald/20 text-xs space-y-2">
+                            <span class="text-titaniumGold block font-bold">INSPECTION HOTSPOTS:</span>
+                            <div class="space-y-2">
+                                <button class="w-full text-left p-2.5 bg-obsidianBg rounded-xl border border-electricEmerald/20 hover:border-electricEmerald text-xs text-gray-300 flex items-center justify-between transition-colors" onclick="focusHotspot('spool')">
+                                    <span>1. Spool Mandrel Drum</span>
+                                    <i class="fa-solid fa-magnifying-glass text-electricEmerald"></i>
+                                </button>
+                                <button class="w-full text-left p-2.5 bg-obsidianBg rounded-xl border border-electricEmerald/20 hover:border-electricEmerald text-xs text-gray-300 flex items-center justify-between transition-colors" onclick="focusHotspot('flange')">
+                                    <span>2. Dual Retaining Flanges</span>
+                                    <i class="fa-solid fa-magnifying-glass text-electricEmerald"></i>
+                                </button>
+                                <button class="w-full text-left p-2.5 bg-obsidianBg rounded-xl border border-electricEmerald/20 hover:border-electricEmerald text-xs text-gray-300 flex items-center justify-between transition-colors" onclick="focusHotspot('shaft')">
+                                    <span>3. High-Torque Drive Shaft</span>
+                                    <i class="fa-solid fa-magnifying-glass text-electricEmerald"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM COLLABORATION & ROLE SPOTLIGHT (Crucial Content Requirement) -->
+    <section id="team-synergy" class="py-24 relative bg-cyber-grid border-b border-electricEmerald/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="reveal text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono font-semibold tracking-widest text-electricEmerald uppercase">Engineering Dynamics</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">Team Synergy & Core Role ⚡</h2>
+                <p class="text-gray-400 text-sm mt-3">Breakdown of Vishva's individual mechanical design contributions within TransM Al-Ojaimi Group's cross-functional machinery team.</p>
+            </div>
+
+            <!-- Team Collaboration Card Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Left: Vishva's Core Contributions -->
+                <div class="lg:col-span-7 glass-card p-8 rounded-3xl border border-electricEmerald/40 space-y-6">
+                    <div class="flex items-center justify-between border-b border-electricEmerald/20 pb-4">
+                        <div>
+                            <span class="text-xs font-mono text-titaniumGold font-bold">TransM AL-OJAIMI GROUP — RIYADH</span>
+                            <h3 class="text-2xl font-bold text-white">Vishva's Specific Design Role</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-electricEmerald/20 text-electricEmerald text-xs font-mono font-bold">Mechanical CAD Lead</span>
+                    </div>
+
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        While working in the Machinery Manufacturing Department, Vishva leads the 3D mechanical modeling and physical sizing for complex winding and duct forming equipment in continuous alignment with automation, electrical, and fabrication engineering teams.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-4 bg-obsidianBg rounded-2xl border border-electricEmerald/20 space-y-2">
+                            <div class="flex items-center gap-2 text-electricEmerald font-bold">
+                                <i class="fa-solid fa-cube"></i>
+                                <span>3D Parametric CAD</span>
+                            </div>
+                            <p class="text-gray-400 text-[11px]">SolidWorks 3D assembly modeling, detail drafting with standardized tolerances & GD&T.</p>
+                        </div>
+
+                        <div class="p-4 bg-obsidianBg rounded-2xl border border-electricEmerald/20 space-y-2">
+                            <div class="flex items-center gap-2 text-cyanHighlight font-bold">
+                                <i class="fa-solid fa-calculator"></i>
+                                <span>Kinematics & FEA</span>
+                            </div>
+                            <p class="text-gray-400 text-[11px]">Spindle torque estimation, gear reduction ratios, and structural stress validation.</p>
+                        </div>
+
+                        <div class="p-4 bg-obsidianBg rounded-2xl border border-electricEmerald/20 space-y-2">
+                            <div class="flex items-center gap-2 text-titaniumGold font-bold">
+                                <i class="fa-solid fa-gears"></i>
+                                <span>Component Sizing</span>
+                            </div>
+                            <p class="text-gray-400 text-[11px]">Selection of linear guides, pneumatic cylinders, bearings, and heavy-duty gearboxes.</p>
+                        </div>
+
+                        <div class="p-4 bg-obsidianBg rounded-2xl border border-electricEmerald/20 space-y-2">
+                            <div class="flex items-center gap-2 text-electricEmerald font-bold">
+                                <i class="fa-solid fa-industry"></i>
+                                <span>DFM & Shop Support</span>
+                            </div>
+                            <p class="text-gray-400 text-[11px]">Direct coordination with shop floor technicians during assembly & initial trial runs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Cross-Functional Team Synergy Diagram -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4">
+                        <h4 class="text-sm font-mono font-bold text-white uppercase tracking-wider border-b border-electricEmerald/20 pb-2">
+                            <i class="fa-solid fa-diagram-project text-electricEmerald mr-2"></i> Cross-Functional Synergies
+                        </h4>
+
+                        <!-- Synergy Node 1 -->
+                        <div class="p-4 bg-obsidianBg rounded-2xl border border-electricEmerald/20 flex items-start gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-electricEmerald/10 text-electricEmerald flex items-center justify-center text-base shrink-0">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-mono font-bold text-white">Electrical & PLC Team</h5>
+                                <p class="text-[11px] text-gray-400 mt-0.5">Synchronizing mechanical shaft drives with PLC servo motor positioning and wire tension sensors.</p>
+                            </div>
+                        </div>
+
+                        <!-- Synergy Node 2 -->
+                        <div class="p-4 bg-obsidianBg rounded-2xl border border-electricEmerald/20 flex items-start gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-cyanHighlight/10 text-cyanHighlight flex items-center justify-center text-base shrink-0">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-mono font-bold text-white">Shop Floor & Fabrication</h5>
+                                <p class="text-[11px] text-gray-400 mt-0.5">Providing fabrication drawings, weldment layouts, and supporting fitting technicians during prototype assembly.</p>
+                            </div>
+                        </div>
+
+                        <!-- Synergy Node 3 -->
+                        <div class="p-4 bg-obsidianBg rounded-2xl border border-electricEmerald/20 flex items-start gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-titaniumGold/10 text-titaniumGold flex items-center justify-center text-base shrink-0">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-mono font-bold text-white">Project Management</h5>
+                                <p class="text-[11px] text-gray-400 mt-0.5">Optimizing design schedules, bill of materials (BOM) sourcing, and cost reduction target reviews.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TRENDING STORY STYLE PROJECT SHOWCASE -->
+    <section id="reels" class="py-24 bg-obsidianCard/50 border-b border-electricEmerald/20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card text-electricEmerald text-xs font-mono mb-2">
+                        <i class="fa-solid fa-film"></i> INSTAGRAM STORY SHOWCASE
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white">Featured Projects ⚡</h2>
+                </div>
+
+                <!-- Category Filters -->
+                <div id="project-filter-bar" class="flex flex-wrap gap-2 mt-6 md:mt-0 glass-card p-1.5 rounded-xl border border-electricEmerald/30 font-mono text-xs">
+                    <button data-cat="all" class="cat-btn active px-4 py-2 rounded-lg font-bold bg-electricEmerald text-obsidianBg transition-all">All Projects</button>
+                    <button data-cat="repl-team" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-300 hover:text-white transition-all">TransM Team Projects</button>
+                    <button data-cat="first-exp" class="cat-btn px-4 py-2 rounded-lg font-semibold text-gray-300 hover:text-white transition-all">Raja Industries</button>
+                </div>
+            </div>
+
+            <!-- Live Project Search -->
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-8 font-mono text-xs">
+                <div class="relative flex-1 max-w-md">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-electricEmerald/70"></i>
+                    <input id="project-search" type="search" placeholder="Search projects (e.g. hydraulic, winding, SolidWorks)..." class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:border-electricEmerald">
+                </div>
+                <span id="project-count" class="text-gray-400">Showing 4 of 4 projects</span>
+            </div>
+            <p id="project-empty" class="hidden text-center text-gray-400 font-mono text-sm py-10">No projects match your search. Try another keyword ⚙️</p>
+
+            <!-- Project Cards Grid -->
+            <div id="reels-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: HV LV Winding Machine (TransM Team Project) -->
+                <div class="reveal reel-card glass-card glass-card-hover rounded-3xl overflow-hidden border border-electricEmerald/30 flex flex-col group" data-category="repl-team">
+                    <div class="relative h-64 overflow-hidden bg-obsidianBg">
+                        <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Transformer Winding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/12181A/00FF87?text=HV+LV+Winding+Machine'">
+                        <div class="absolute top-4 right-4 bg-obsidianBg/90 text-titaniumGold px-3 py-1 rounded-full text-[10px] font-mono font-bold border border-titaniumGold/40 shadow-lg">
+                            <i class="fa-solid fa-users mr-1"></i> CURRENT TEAM PROJECT
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono tracking-widest text-electricEmerald uppercase">TransM AL-OJAIMI GROUP — RIYADH</span>
+                            <h3 class="text-xl font-extrabold text-white mt-1">H.V. & L.V. Transformer Winding Machine</h3>
+                            <p class="text-gray-300 text-xs mt-2 line-clamp-3">High-precision winding equipment engineered for uniform tensioning, adjustable coil mandrels, and high-torque gear reduction.</p>
+                        </div>
+                        <div class="pt-4 border-t border-electricEmerald/20 flex items-center justify-between font-mono">
+                            <span class="text-xs text-cyanHighlight">SolidWorks 3D CAD</span>
+                            <button onclick="openReelModal('reel-1'); playAudio('click');" class="text-xs font-bold text-electricEmerald hover:text-cyanHighlight flex items-center gap-1.5">
+                                BREAKDOWN <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Oil Duct Making Machine (TransM Team Project) -->
+                <div class="reveal reel-card glass-card glass-card-hover rounded-3xl overflow-hidden border border-electricEmerald/30 flex flex-col group" data-category="repl-team">
+                    <div class="relative h-64 overflow-hidden bg-obsidianBg">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" alt="Oil Duct Machinery" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/12181A/00FF87?text=Oil+Duct+Machine'">
+                        <div class="absolute top-4 right-4 bg-obsidianBg/90 text-titaniumGold px-3 py-1 rounded-full text-[10px] font-mono font-bold border border-titaniumGold/40 shadow-lg">
+                            <i class="fa-solid fa-users mr-1"></i> CURRENT TEAM PROJECT
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono tracking-widest text-electricEmerald uppercase">TransM AL-OJAIMI GROUP — RIYADH</span>
+                            <h3 class="text-xl font-extrabold text-white mt-1">Oil Duct Insulation Making Machine</h3>
+                            <p class="text-gray-300 text-xs mt-2 line-clamp-3">Automated insulation duct processing machinery with continuous strip feeding, die press punching, and guillotine cutoff.</p>
+                        </div>
+                        <div class="pt-4 border-t border-electricEmerald/20 flex items-center justify-between font-mono">
+                            <span class="text-xs text-cyanHighlight">Automated Forming</span>
+                            <button onclick="openReelModal('reel-2'); playAudio('click');" class="text-xs font-bold text-electricEmerald hover:text-cyanHighlight flex items-center gap-1.5">
+                                BREAKDOWN <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: 10 kg Hydraulic Press (Raja Industries) -->
+                <div class="reveal reel-card glass-card glass-card-hover rounded-3xl overflow-hidden border border-electricEmerald/20 flex flex-col group" data-category="first-exp">
+                    <div class="relative h-64 overflow-hidden bg-obsidianBg">
+                        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80" alt="Hydraulic Press" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/12181A/00FF87?text=10kg+Hydraulic+Press'">
+                        <div class="absolute top-4 right-4 bg-obsidianBg/90 text-electricEmerald px-3 py-1 rounded-full text-[10px] font-mono font-bold border border-electricEmerald/40">
+                            1st Practical Experience
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono tracking-widest text-electricEmerald uppercase">RAJA INDUSTRIES — DINDIGUL</span>
+                            <h3 class="text-xl font-extrabold text-white mt-1">10 kg Batch Hydraulic Press Machinery</h3>
+                            <p class="text-gray-300 text-xs mt-2 line-clamp-3">Foundational design & shop floor build of a compact batch hydraulic press with double-acting cylinder force calculation.</p>
+                        </div>
+                        <div class="pt-4 border-t border-electricEmerald/20 flex items-center justify-between font-mono">
+                            <span class="text-xs text-cyanHighlight">Solid Edge / AutoCAD</span>
+                            <button onclick="openReelModal('reel-3'); playAudio('click');" class="text-xs font-bold text-electricEmerald hover:text-cyanHighlight flex items-center gap-1.5">
+                                BREAKDOWN <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Automated Dosa Machine (Raja Industries) -->
+                <div class="reveal reel-card glass-card glass-card-hover rounded-3xl overflow-hidden border border-electricEmerald/20 flex flex-col group" data-category="first-exp">
+                    <div class="relative h-64 overflow-hidden bg-obsidianBg">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Dosa Machine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/12181A/00FF87?text=Food+Processing+Machine'">
+                        <div class="absolute top-4 right-4 bg-obsidianBg/90 text-electricEmerald px-3 py-1 rounded-full text-[10px] font-mono font-bold border border-electricEmerald/40">
+                            1st Practical Experience
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono tracking-widest text-electricEmerald uppercase">RAJA INDUSTRIES — DINDIGUL</span>
+                            <h3 class="text-xl font-extrabold text-white mt-1">Wood-Fired Automated Dosa Machine</h3>
+                            <p class="text-gray-300 text-xs mt-2 line-clamp-3">Automated food processing machinery featuring a rotating griddle, automated batter dispenser, and wood combustion chamber.</p>
+                        </div>
+                        <div class="pt-4 border-t border-electricEmerald/20 flex items-center justify-between font-mono">
+                            <span class="text-xs text-cyanHighlight">Machinery & Fabrication</span>
+                            <button onclick="openReelModal('reel-4'); playAudio('click');" class="text-xs font-bold text-electricEmerald hover:text-cyanHighlight flex items-center gap-1.5">
+                                BREAKDOWN <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CAREER ROADMAP & ACADEMIC TIMELINE -->
+    <section id="timeline" class="py-24 relative bg-cyber-grid">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="reveal text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono font-semibold tracking-widest text-electricEmerald uppercase">Career Trajectory</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">Experience Roadmap ⚡</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="space-y-8 max-w-4xl mx-auto">
+                
+                <!-- Role 1: TransM Al-Ojaimi Group -->
+                <div class="glass-card p-8 rounded-3xl border border-electricEmerald/50 relative overflow-hidden group hover:border-electricEmerald transition-all">
+                    <div class="absolute top-0 right-0 w-2.5 h-full bg-gradient-to-b from-electricEmerald to-cyanHighlight"></div>
+                    
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 border-b border-electricEmerald/20 pb-4">
+                        <div>
+                            <div class="flex items-center gap-3">
+                                <span class="px-3 py-1 rounded-full bg-electricEmerald/20 text-electricEmerald text-xs font-mono font-bold">CURRENT POSITION⚡</span>
+                                <h3 class="text-2xl font-bold text-white">Design Engineer — Machinery Mfg Dept.</h3>
+                            </div>
+                            <p class="text-electricEmerald font-mono text-sm mt-1">TransM Al-Ojaimi Group</p>
+                        </div>
+                        <div class="text-xs font-mono text-gray-300 bg-obsidianBg px-3.5 py-2 rounded-xl border border-electricEmerald/30 w-fit">
+                            <i class="fa-solid fa-location-dot text-electricEmerald mr-1.5"></i> Riyadh, Saudi Arabia 🇸🇦
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-electricEmerald mt-1 shrink-0 text-xs"></i>
+                            <span>Key design contributor within a collaborative cross-functional engineering team producing heavy-duty <strong>H.V. & L.V. Transformer Winding Machines</strong> and <strong>Oil Duct Insulation Making Equipment</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-electricEmerald mt-1 shrink-0 text-xs"></i>
+                            <span>Responsible for parametric 3D CAD modeling (SolidWorks), mechanical stress calculations, drive spindle torque sizing, and manufacturing drafting (GD&T).</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-6 pt-4 border-t border-electricEmerald/20 flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="bg-obsidianBg text-electricEmerald px-3 py-1 rounded-lg border border-electricEmerald/30">H.V. / L.V. Winding</span>
+                        <span class="bg-obsidianBg text-electricEmerald px-3 py-1 rounded-lg border border-electricEmerald/30">Oil Duct Machinery</span>
+                        <span class="bg-obsidianBg text-electricEmerald px-3 py-1 rounded-lg border border-electricEmerald/30">SolidWorks 3D</span>
+                        <span class="bg-obsidianBg text-electricEmerald px-3 py-1 rounded-lg border border-electricEmerald/30">Team Collaboration</span>
+                    </div>
+                </div>
+
+                <!-- Role 2: Raja Industries -->
+                <div class="glass-card p-8 rounded-3xl border border-electricEmerald/20 relative overflow-hidden group hover:border-electricEmerald/40 transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 border-b border-electricEmerald/20 pb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Design & Fabrication Engineer (1st Practical Experience)</h3>
+                            <p class="text-electricEmerald font-mono text-sm mt-1">Raja Industries</p>
+                        </div>
+                        <div class="text-xs font-mono text-gray-300 bg-obsidianBg px-3.5 py-2 rounded-xl border border-electricEmerald/30 w-fit">
+                            <i class="fa-solid fa-location-dot text-electricEmerald mr-1.5"></i> Dindigul, Tamil Nadu, India 🇮🇳
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-electricEmerald mt-1 shrink-0 text-xs"></i>
+                            <span>Gained foundational hands-on industry experience in machinery design, shop floor fabrication, lathe tooling, sheet metal layout, and assembly fitting.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-electricEmerald mt-1 shrink-0 text-xs"></i>
+                            <span>Designed 10 kg Batch Hydraulic Press machinery and wood-fired automated food processing equipment using Solid Edge & AutoCAD.</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-6 pt-4 border-t border-electricEmerald/20 flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="bg-obsidianBg text-electricEmerald px-3 py-1 rounded-lg border border-electricEmerald/30">Solid Edge</span>
+                        <span class="bg-obsidianBg text-electricEmerald px-3 py-1 rounded-lg border border-electricEmerald/30">AutoCAD 2D</span>
+                        <span class="bg-obsidianBg text-electricEmerald px-3 py-1 rounded-lg border border-electricEmerald/30">Hydraulics</span>
+                        <span class="bg-obsidianBg text-electricEmerald px-3 py-1 rounded-lg border border-electricEmerald/30">Shop Floor Fitting</span>
+                    </div>
+                </div>
+
+                <!-- Education Card -->
+                <div class="glass-card p-6 rounded-2xl border border-electricEmerald/20 flex items-center gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-electricEmerald/10 text-electricEmerald flex items-center justify-center text-2xl shrink-0 border border-electricEmerald/30">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-mono text-electricEmerald uppercase">ACADEMIC DEGREE</span>
+                        <h4 class="text-lg font-bold text-white">B.E. Mechanical Engineering</h4>
+                        <p class="text-xs text-gray-400 font-mono mt-1">Mepco Schlenk Engineering College</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE ENGINEERING WORKBENCH CALCULATORS -->
+    <section id="workbench" class="py-24 relative bg-obsidianCard/50 border-t border-electricEmerald/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="reveal text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono font-semibold tracking-widest text-electricEmerald uppercase">Interactive Engineering Workbench</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">Machinery Design Calculators ⚡</h2>
+                <p class="text-gray-400 text-sm font-mono mt-3">Live parameter calculations for winding spindle torque, hydraulic punch tonnage, and machine ROI.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 font-mono">
+                
+                <!-- Tool 1: Winding Spindle Torque -->
+                <div class="glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4">
+                    <div class="flex items-center gap-2.5 border-b border-electricEmerald/20 pb-3">
+                        <i class="fa-solid fa-arrows-spin text-electricEmerald text-lg"></i>
+                        <h3 class="text-sm font-bold text-white">Winding Spindle Motor & Torque</h3>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <label class="text-gray-300 block mb-1">Wire Tension Force (N)</label>
+                            <input type="number" id="calc-tension" value="380" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runTorqueCalc()">
+                        </div>
+                        <div>
+                            <label class="text-gray-300 block mb-1">Coil Mandrel Radius (mm)</label>
+                            <input type="number" id="calc-radius" value="160" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runTorqueCalc()">
+                        </div>
+                        <div>
+                            <label class="text-gray-300 block mb-1">Spindle Speed (RPM)</label>
+                            <input type="number" id="calc-rpm" value="50" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runTorqueCalc()">
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-electricEmerald/20 bg-obsidianBg p-3.5 rounded-2xl space-y-1">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-400">Required Torque:</span>
+                            <span id="res-torque" class="text-electricEmerald font-bold">60.80 Nm</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-400">Required Power:</span>
+                            <span id="res-kw" class="text-cyanHighlight font-bold">0.32 kW / 0.43 HP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool 2: Hydraulic Punching Force -->
+                <div class="glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4">
+                    <div class="flex items-center gap-2.5 border-b border-electricEmerald/20 pb-3">
+                        <i class="fa-solid fa-oil-can text-electricEmerald text-lg"></i>
+                        <h3 class="text-sm font-bold text-white">Oil Duct Punch Force</h3>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <label class="text-gray-300 block mb-1">Duct Thickness (mm)</label>
+                            <input type="number" id="calc-thick" value="4.0" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runPunchCalc()">
+                        </div>
+                        <div>
+                            <label class="text-gray-300 block mb-1">Die Perimeter (mm)</label>
+                            <input type="number" id="calc-perim" value="140" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runPunchCalc()">
+                        </div>
+                        <div>
+                            <label class="text-gray-300 block mb-1">Material Shear Stress (MPa)</label>
+                            <input type="number" id="calc-shear" value="300" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runPunchCalc()">
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-electricEmerald/20 bg-obsidianBg p-3.5 rounded-2xl space-y-1">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-400">Shear Force Needed:</span>
+                            <span id="res-force-kn" class="text-electricEmerald font-bold">168.0 kN</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-400">Press Tonnage:</span>
+                            <span id="res-ton" class="text-titaniumGold font-bold">17.13 Tons</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool 3: Machine Production Cycle & ROI -->
+                <div class="glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4">
+                    <div class="flex items-center gap-2.5 border-b border-electricEmerald/20 pb-3">
+                        <i class="fa-solid fa-calculator text-electricEmerald text-lg"></i>
+                        <h3 class="text-sm font-bold text-white">Machine ROI Estimator</h3>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <label class="text-gray-300 block mb-1">Manual Winding Time (Mins)</label>
+                            <input type="number" id="calc-manual-min" value="30" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runRoiCalc()">
+                        </div>
+                        <div>
+                            <label class="text-gray-300 block mb-1">Automated Machine Time (Mins)</label>
+                            <input type="number" id="calc-auto-min" value="7" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runRoiCalc()">
+                        </div>
+                        <div>
+                            <label class="text-gray-300 block mb-1">Daily Target Batches</label>
+                            <input type="number" id="calc-batches" value="15" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-2.5 focus:outline-none focus:border-electricEmerald" oninput="runRoiCalc()">
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-electricEmerald/20 bg-obsidianBg p-3.5 rounded-2xl space-y-1">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-400">Time Saved / Batch:</span>
+                            <span id="res-saved" class="text-electricEmerald font-bold">23 Mins</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-400">Production Efficiency:</span>
+                            <span id="res-gain" class="text-cyanHighlight font-bold">76.7% Gain</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS MATRIX WITH 3D TILT CARDS -->
+    <section id="skills" class="py-24 bg-cyber-grid relative border-t border-electricEmerald/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="reveal text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono font-semibold tracking-widest text-electricEmerald uppercase">Technical Capabilities</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">3D CAD & Engineering Stack ⚡</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-mono">
+                
+                <div class="reveal tilt-card glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4 hover:border-electricEmerald transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-electricEmerald/10 text-electricEmerald flex items-center justify-center text-2xl border border-electricEmerald/30">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">SolidWorks 3D Modeling</h3>
+                    <p class="text-xs text-gray-400">Parametric parts, heavy machinery assemblies, sheet metal enclosures, GD&T detail drafting.</p>
+                    <div class="pt-1">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1.5"><span>PROFICIENCY</span><span class="skill-pct text-electricEmerald font-bold" data-target="92">0%</span></div>
+                        <div class="h-1.5 rounded-full bg-obsidianBg overflow-hidden"><div class="skill-bar h-full rounded-full bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold" style="width:0%" data-target="92"></div></div>
+                    </div>
+                </div>
+
+                <div class="reveal tilt-card glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4 hover:border-electricEmerald transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-cyanHighlight/10 text-cyanHighlight flex items-center justify-center text-2xl border border-cyanHighlight/30">
+                        <i class="fa-solid fa-gears"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Solid Edge & AutoCAD</h3>
+                    <p class="text-xs text-gray-400">Synchronous modeling, 2D machine floor layout drafting, component selection, fabrication BOMs.</p>
+                    <div class="pt-1">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1.5"><span>PROFICIENCY</span><span class="skill-pct text-electricEmerald font-bold" data-target="85">0%</span></div>
+                        <div class="h-1.5 rounded-full bg-obsidianBg overflow-hidden"><div class="skill-bar h-full rounded-full bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold" style="width:0%" data-target="85"></div></div>
+                    </div>
+                </div>
+
+                <div class="reveal tilt-card glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4 hover:border-electricEmerald transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-electricEmerald/10 text-electricEmerald flex items-center justify-center text-2xl border border-electricEmerald/30">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Winding & Duct Machinery</h3>
+                    <p class="text-xs text-gray-400">Spindle gear reduction ratios, wire tension alignment, coil mandrels, oil duct punch lines.</p>
+                    <div class="pt-1">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1.5"><span>PROFICIENCY</span><span class="skill-pct text-electricEmerald font-bold" data-target="88">0%</span></div>
+                        <div class="h-1.5 rounded-full bg-obsidianBg overflow-hidden"><div class="skill-bar h-full rounded-full bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold" style="width:0%" data-target="88"></div></div>
+                    </div>
+                </div>
+
+                <div class="reveal tilt-card glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4 hover:border-electricEmerald transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-titaniumGold/10 text-titaniumGold flex items-center justify-center text-2xl border border-titaniumGold/30">
+                        <i class="fa-solid fa-oil-can"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Hydraulics & Pneumatics</h3>
+                    <p class="text-xs text-gray-400">Cylinder force calculation, hydraulic power packs, directional valve logic, tool sizing.</p>
+                    <div class="pt-1">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1.5"><span>PROFICIENCY</span><span class="skill-pct text-electricEmerald font-bold" data-target="80">0%</span></div>
+                        <div class="h-1.5 rounded-full bg-obsidianBg overflow-hidden"><div class="skill-bar h-full rounded-full bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold" style="width:0%" data-target="80"></div></div>
+                    </div>
+                </div>
+
+                <div class="reveal tilt-card glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4 hover:border-electricEmerald transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-electricEmerald/10 text-electricEmerald flex items-center justify-center text-2xl border border-electricEmerald/30">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">DFM / DFA Principles</h3>
+                    <p class="text-xs text-gray-400">Design for Manufacturability, minimizing machining setups, standard fasteners, shop floor assembly.</p>
+                    <div class="pt-1">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1.5"><span>PROFICIENCY</span><span class="skill-pct text-electricEmerald font-bold" data-target="86">0%</span></div>
+                        <div class="h-1.5 rounded-full bg-obsidianBg overflow-hidden"><div class="skill-bar h-full rounded-full bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold" style="width:0%" data-target="86"></div></div>
+                    </div>
+                </div>
+
+                <div class="reveal tilt-card glass-card p-6 rounded-3xl border border-electricEmerald/20 space-y-4 hover:border-electricEmerald transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-cyanHighlight/10 text-cyanHighlight flex items-center justify-center text-2xl border border-cyanHighlight/30">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Shop Floor Fabrication</h3>
+                    <p class="text-xs text-gray-400">Hands-on lathe & milling operations, weldment fit-up inspection, trial runs, prototype tuning.</p>
+                    <div class="pt-1">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1.5"><span>PROFICIENCY</span><span class="skill-pct text-electricEmerald font-bold" data-target="82">0%</span></div>
+                        <div class="h-1.5 rounded-full bg-obsidianBg overflow-hidden"><div class="skill-bar h-full rounded-full bg-gradient-to-r from-electricEmerald via-cyanHighlight to-titaniumGold" style="width:0%" data-target="82"></div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- HIGH IMPACT CONTACT PORTAL -->
+    <section id="contact" class="py-24 relative bg-obsidianCard/60 border-t border-electricEmerald/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Direct Quick Cards -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-xs font-mono font-semibold tracking-widest text-electricEmerald uppercase">Direct Portal</span>
+                        <h2 class="text-3xl sm:text-5xl font-black text-white mt-1">Get In Touch ⚡</h2>
+                        <p class="text-gray-400 text-sm mt-3">Ready for technical collaboration on transformer winding machinery, custom automation lines, or CAD design?</p>
+                    </div>
+
+                    <div class="space-y-4 font-mono">
+                        <div class="glass-card p-5 rounded-2xl border border-electricEmerald/20 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-electricEmerald/10 text-electricEmerald flex items-center justify-center text-xl shrink-0 border border-electricEmerald/30">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-gray-400 block">LOCATION</span>
+                                <span class="text-sm font-bold text-white">Riyadh, Saudi Arabia 🇸🇦</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-2xl border border-electricEmerald/20 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-electricEmerald/10 text-electricEmerald flex items-center justify-center text-xl shrink-0 border border-electricEmerald/30">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-gray-400 block">CURRENT EMPLOYER</span>
+                                <span class="text-sm font-bold text-white">TransM Al-Ojaimi Group</span>
+                            </div>
+                        </div>
+
+                        <!-- Direct WhatsApp Connection Button -->
+                        <a href="https://wa.me/919688877770?text=Hello%20Vishva,%20I%20reviewed%20your%20engineering%20portfolio!" target="_blank" onclick="playAudio('click')" class="glass-card p-5 rounded-2xl border border-electricEmerald/30 flex items-center justify-between hover:border-electricEmerald group transition-all">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-electricEmerald flex items-center justify-center text-xl shrink-0 border border-electricEmerald/30">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] text-gray-400 block">INSTANT MESSAGING</span>
+                                    <span class="text-sm font-bold text-white group-hover:text-electricEmerald transition-colors">WhatsApp: +91 96888 77770</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-electricEmerald text-xs"></i>
+                        </a>
+
+                        <div class="glass-card p-5 rounded-2xl border border-electricEmerald/20 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-electricEmerald/10 text-electricEmerald flex items-center justify-center text-xl shrink-0 border border-electricEmerald/30">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-[10px] text-gray-400 block">EMAIL CONTACT</span>
+                                <div class="flex items-center gap-2 mt-0.5">
+                                    <span id="email-text" class="text-xs sm:text-sm font-bold text-white">vishvarajendran2002@gmail.com</span>
+                                    <button onclick="copyToClipboard('vishvarajendran2002@gmail.com', 'Email Address'); playAudio('click');" title="Copy Email" class="text-electricEmerald hover:text-cyanHighlight">
+                                        <i class="fa-solid fa-copy text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form with Confetti Celebration -->
+                <div class="lg:col-span-7 glass-card p-8 rounded-3xl border border-electricEmerald/30 shadow-2xl">
+                    <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleDispatchSubmit(event)" class="space-y-6">
+                        <input type="hidden" name="form-name" value="contact">
+                        <p class="hidden"><label>Don't fill this out: <input name="bot-field"></label></p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-xs font-mono text-gray-300 uppercase tracking-wider block mb-2">Your Name *</label>
+                                <input type="text" name="name" required placeholder="Name / Company" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-electricEmerald font-mono">
+                            </div>
+                            <div>
+                                <label class="text-xs font-mono text-gray-300 uppercase tracking-wider block mb-2">Email Address *</label>
+                                <input type="email" name="email" required placeholder="email@domain.com" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-electricEmerald font-mono">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-mono text-gray-300 uppercase tracking-wider block mb-2">Subject</label>
+                            <input type="text" name="subject" placeholder="Machinery Design Inquiry / Collaboration" class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-electricEmerald font-mono">
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-mono text-gray-300 uppercase tracking-wider block mb-2">Project Specification / Message *</label>
+                            <textarea name="message" id="msg-field" required rows="4" maxlength="1000" placeholder="Detail your machinery requirements or inquiry..." class="w-full bg-obsidianBg border border-electricEmerald/30 text-white rounded-xl p-4 text-sm focus:outline-none focus:border-electricEmerald font-mono resize-none"></textarea>
+                            <div class="flex justify-between mt-1.5 text-[10px] font-mono text-gray-500"><span>Tip: Ctrl + Enter to send</span><span id="msg-count">0 / 1000</span></div>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-electricEmerald via-deepMint to-cyanHighlight text-obsidianBg font-extrabold text-sm shadow-xl shadow-electricEmerald/25 hover:scale-[1.01] transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>DISPATCH MESSAGE TO VISHVA</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 bg-obsidianBg border-t border-electricEmerald/20 text-xs font-mono text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© 2026 Vishva Rajendran. Mechanical Design Engineering Portfolio. ⚡</p>
+            <div class="flex items-center space-x-6">
+                <span>TransM Al-Ojaimi Group | Riyadh</span>
+                <a href="#hero" class="text-electricEmerald hover:underline">Back to Top ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FULLSCREEN PROJECT MODAL -->
+    <div id="reel-modal" class="fixed inset-0 bg-obsidianBg/90 backdrop-blur-md z-[9990] hidden flex items-center justify-center p-4">
+        <div id="reel-modal-panel" class="modal-pop glass-card max-w-2xl w-full rounded-3xl border border-electricEmerald/40 p-6 sm:p-8 space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeReelModal(); playAudio('click');" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-obsidianBg text-gray-300 hover:text-white flex items-center justify-center border border-electricEmerald/30">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div id="reel-modal-content" class="space-y-4">
+                <!-- Injected Dynamically -->
+            </div>
+
+            <div class="flex items-center justify-between pt-2 font-mono text-xs">
+                <button onclick="stepReelModal(-1)" class="px-4 py-2 rounded-xl glass-card text-electricEmerald border border-electricEmerald/30 hover:bg-obsidianCard"><i class="fa-solid fa-arrow-left mr-1.5"></i> PREV</button>
+                <span id="reel-modal-counter" class="text-gray-400"></span>
+                <button onclick="stepReelModal(1)" class="px-4 py-2 rounded-xl glass-card text-electricEmerald border border-electricEmerald/30 hover:bg-obsidianCard">NEXT <i class="fa-solid fa-arrow-right ml-1.5"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- 1. Audio Synthesis Engine ---
+        let soundEnabled = false;
+        let audioCtx = null;
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            if (soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-sm';
+                showToast('Futuristic Audio Synthesis Active ⚡');
+                playAudio('hover');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-sm';
+                showToast('Audio Muted');
+            }
+        }
+
+        function playAudio(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'hover') {
+                    osc.frequency.setValueAtTime(750, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1100, audioCtx.currentTime + 0.04);
+                    gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.04);
+                } else if (type === 'click') {
+                    osc.frequency.setValueAtTime(450, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                }
+            } catch (e) {}
+        }
+
+        // --- 2. Custom Liquid Cyber Cursor ---
+        const cursor = document.getElementById('custom-cursor');
+        const follower = document.getElementById('custom-cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+            follower.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+        });
+
+        // --- 3. Typing Header Animation ---
+        const typingPhrases = [
+            "H.V. & L.V. Transformer Winding Machinery (Team Project)",
+            "Automated Oil Duct Insulation Processing Machinery",
+            "TransM Al-Ojaimi Group — Riyadh Machinery Department",
+            "3D Parametric CAD Modeling, Kinematics & FEA Stress Sizing"
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        function typeLoop() {
+            const current = typingPhrases[phraseIdx];
+            const el = document.getElementById('typing-text');
+            
+            if (isDeleting) {
+                el.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                el.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 25 : 50;
+
+            if (!isDeleting && charIdx === current.length) {
+                typeSpeed = 2200;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % typingPhrases.length;
+                typeSpeed = 400;
+            }
+
+            setTimeout(typeLoop, typeSpeed);
+        }
+        typeLoop();
+
+        // --- 4. Matrix Hero Canvas Background Mesh ---
+        const heroCanvas = document.getElementById('hero-canvas');
+        const heroCtx = heroCanvas.getContext('2d');
+        let heroNodes = [];
+
+        function resizeHeroCanvas() {
+            heroCanvas.width = heroCanvas.parentElement.clientWidth;
+            heroCanvas.height = heroCanvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeHeroCanvas);
+        resizeHeroCanvas();
+
+        class HeroNode {
+            constructor() {
+                this.x = Math.random() * heroCanvas.width;
+                this.y = Math.random() * heroCanvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > heroCanvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > heroCanvas.height) this.vy *= -1;
+            }
+            draw() {
+                heroCtx.beginPath();
+                heroCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                heroCtx.fillStyle = '#00FF87';
+                heroCtx.fill();
+            }
+        }
+
+        for (let i = 0; i < 42; i++) heroNodes.push(new HeroNode());
+
+        function animateHeroMesh() {
+            heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+            for (let i = 0; i < heroNodes.length; i++) {
+                heroNodes[i].update();
+                heroNodes[i].draw();
+
+                for (let j = i + 1; j < heroNodes.length; j++) {
+                    const dx = heroNodes[i].x - heroNodes[j].x;
+                    const dy = heroNodes[i].y - heroNodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        heroCtx.beginPath();
+                        heroCtx.moveTo(heroNodes[i].x, heroNodes[i].y);
+                        heroCtx.lineTo(heroNodes[j].x, heroNodes[j].y);
+                        heroCtx.strokeStyle = `rgba(0, 255, 135, ${1 - dist / 130})`;
+                        heroCtx.lineWidth = 0.6;
+                        heroCtx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateHeroMesh);
+        }
+        animateHeroMesh();
+
+        // --- 5. Interactive 3D Machine Assembly (Three.js) ---
+        let cadScene, cadCamera, cadRenderer, cadGroup, coreCylinder, flangeL, flangeR, shaft, motorBox;
+        let cadSpeed = 0.015;
+
+        function initCadStudio() {
+            const container = document.getElementById('three-cad-canvas');
+            if (!container) return;
+
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            cadScene = new THREE.Scene();
+            cadCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+            cadCamera.position.set(0, 4, 12);
+
+            cadRenderer = new THREE.WebGLRenderer({ canvas: container, antialias: true, alpha: true });
+            cadRenderer.setSize(width, height);
+            cadRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+            cadScene.add(ambient);
+
+            const dirLight = new THREE.DirectionalLight(0x00FF87, 2.0);
+            dirLight.position.set(10, 15, 10);
+            cadScene.add(dirLight);
+
+            cadGroup = new THREE.Group();
+
+            const matObsidian = new THREE.MeshStandardMaterial({ color: 0x00FF87, metalness: 0.85, roughness: 0.2 });
+
+            // 1. Spool Core
+            const coreGeo = new THREE.CylinderGeometry(1.3, 1.3, 4.0, 32);
+            coreCylinder = new THREE.Mesh(coreGeo, matObsidian);
+            coreCylinder.rotation.z = Math.PI / 2;
+            cadGroup.add(coreCylinder);
+
+            // 2. Dual Support Flanges
+            const flangeGeo = new THREE.CylinderGeometry(3.0, 3.0, 0.35, 32);
+            flangeL = new THREE.Mesh(flangeGeo, matObsidian);
+            flangeL.position.x = -2.0;
+            flangeL.rotation.z = Math.PI / 2;
+            cadGroup.add(flangeL);
+
+            flangeR = new THREE.Mesh(flangeGeo, matObsidian);
+            flangeR.position.x = 2.0;
+            flangeR.rotation.z = Math.PI / 2;
+            cadGroup.add(flangeR);
+
+            // 3. Central Shaft
+            const shaftGeo = new THREE.CylinderGeometry(0.55, 0.55, 6.5, 32);
+            shaft = new THREE.Mesh(shaftGeo, matObsidian);
+            shaft.rotation.z = Math.PI / 2;
+            cadGroup.add(shaft);
+
+            // 4. Drive Motor Gearbox Block
+            const motorGeo = new THREE.BoxGeometry(1.8, 2.2, 1.8);
+            motorBox = new THREE.Mesh(motorGeo, new THREE.MeshStandardMaterial({ color: 0x00E5FF, metalness: 0.9, roughness: 0.1 }));
+            motorBox.position.set(-4.0, 0, 0);
+            cadGroup.add(motorBox);
+
+            cadScene.add(cadGroup);
+
+            // Drag Orbit Controls
+            let isDragging = false;
+            let prevMouse = { x: 0, y: 0 };
+
+            container.addEventListener('mousedown', () => { isDragging = true; });
+            container.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const dx = e.clientX - prevMouse.x;
+                    const dy = e.clientY - prevMouse.y;
+                    cadGroup.rotation.y += dx * 0.01;
+                    cadGroup.rotation.x += dy * 0.01;
+                }
+                prevMouse = { x: e.clientX, y: e.clientY };
+            });
+            window.addEventListener('mouseup', () => { isDragging = false; });
+
+            // Touch orbit
+            container.addEventListener('touchstart', (e) => {
+                const t = e.touches[0];
+                prevMouse = { x: t.clientX, y: t.clientY };
+            }, { passive: true });
+            container.addEventListener('touchmove', (e) => {
+                const t = e.touches[0];
+                cadGroup.rotation.y += (t.clientX - prevMouse.x) * 0.01;
+                cadGroup.rotation.x += (t.clientY - prevMouse.y) * 0.01;
+                prevMouse = { x: t.clientX, y: t.clientY };
+                e.preventDefault();
+            }, { passive: false });
+
+            // Scroll zoom
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const z = cadCamera.position.z + e.deltaY * 0.01;
+                cadCamera.position.z = Math.min(22, Math.max(6, z));
+            }, { passive: false });
+
+            // Keep the canvas sharp on resize
+            window.addEventListener('resize', () => {
+                const w = container.clientWidth, h = container.clientHeight;
+                if (!w || !h) return;
+                cadCamera.aspect = w / h;
+                cadCamera.updateProjectionMatrix();
+                cadRenderer.setSize(w, h, false);
+            });
+
+            animateCad();
+        }
+
+        function animateCad() {
+            requestAnimationFrame(animateCad);
+            if (cadGroup) {
+                cadGroup.rotation.y += cadSpeed;
+            }
+            cadRenderer.render(cadScene, cadCamera);
+        }
+
+        // CAD Controls Setup
+        document.getElementById('explode-slider').addEventListener('input', (e) => {
+            const factor = e.target.value / 100;
+            document.getElementById('explode-val').textContent = `${e.target.value}%`;
+            flangeL.position.x = -2.0 - factor * 2.2;
+            flangeR.position.x = 2.0 + factor * 2.2;
+            motorBox.position.x = -4.0 - factor * 3.0;
+        });
+
+        document.getElementById('speed-slider').addEventListener('input', (e) => {
+            const val = e.target.value;
+            cadSpeed = val / 1000;
+            document.getElementById('speed-val').textContent = `${val} RPM`;
+        });
+
+        function setRenderMode(mode) {
+            const isWire = (mode === 'wireframe');
+            coreCylinder.material.wireframe = isWire;
+            flangeL.material.wireframe = isWire;
+            flangeR.material.wireframe = isWire;
+            shaft.material.wireframe = isWire;
+            motorBox.material.wireframe = isWire;
+
+            document.getElementById('mode-solid').className = isWire ? 'py-2.5 rounded-xl glass-card text-electricEmerald text-xs hover:bg-obsidianCard' : 'py-2.5 rounded-xl bg-electricEmerald text-obsidianBg font-bold text-xs shadow-md';
+            document.getElementById('mode-wire').className = isWire ? 'py-2.5 rounded-xl bg-electricEmerald text-obsidianBg font-bold text-xs shadow-md' : 'py-2.5 rounded-xl glass-card text-electricEmerald text-xs hover:bg-obsidianCard';
+            playAudio('click');
+        }
+
+        const hotspotInfo = {
+            spool: { title: 'Spool Mandrel Drum', desc: 'Ø260 mm core carrying HV/LV coil turns', parts: () => [coreCylinder], rot: 0.35 },
+            flange: { title: 'Support Flanges & Bearings', desc: 'Ø600 mm side plates, locate & clamp the coil', parts: () => [flangeL, flangeR], rot: 1.1 },
+            shaft: { title: 'High-Torque Drive Shaft', desc: 'Transmits gearbox torque to the mandrel', parts: () => [shaft, motorBox], rot: -0.6 }
+        };
+        const highlightMat = new THREE.MeshStandardMaterial({ color: 0xFFD700, emissive: 0xFFB000, emissiveIntensity: 0.6, metalness: 0.6, roughness: 0.25 });
+        let hotspotTimer = null;
+
+        function focusHotspot(target) {
+            playAudio('click');
+            const info = hotspotInfo[target];
+            if (!info || !cadGroup) return;
+
+            // Restore any previous highlight, then glow the selected parts
+            [coreCylinder, flangeL, flangeR, shaft, motorBox].forEach(m => { if (m.userData.baseMat) { m.material = m.userData.baseMat; delete m.userData.baseMat; } });
+            highlightMat.wireframe = coreCylinder.material.wireframe;
+            info.parts().forEach(m => { m.userData.baseMat = m.material; m.material = highlightMat; });
+            cadGroup.rotation.set(0.25, info.rot, 0);
+
+            const tip = document.getElementById('cad-hotspot-tooltip');
+            document.getElementById('hotspot-title').textContent = info.title;
+            document.getElementById('hotspot-desc').textContent = info.desc;
+            tip.style.left = '50%'; tip.style.bottom = '24px'; tip.style.transform = 'translateX(-50%)';
+            tip.classList.remove('hidden');
+
+            clearTimeout(hotspotTimer);
+            hotspotTimer = setTimeout(() => {
+                info.parts().forEach(m => { if (m.userData.baseMat) { m.material = m.userData.baseMat; delete m.userData.baseMat; } });
+                tip.classList.add('hidden');
+            }, 3500);
+            showToast(`Focused on ${info.title}`);
+        }
+
+        function resetCamera() {
+            if (cadGroup && cadCamera) {
+                cadGroup.rotation.set(0, 0, 0);
+                cadCamera.position.set(0, 4, 12);
+            }
+        }
+
+        // --- 6. Engineering Calculators ---
+        function runTorqueCalc() {
+            const t = parseFloat(document.getElementById('calc-tension').value) || 0;
+            const r = parseFloat(document.getElementById('calc-radius').value) || 0;
+            const rpm = parseFloat(document.getElementById('calc-rpm').value) || 0;
+
+            const torque = (t * (r / 1000)).toFixed(2);
+            const kw = ((torque * rpm) / 9550).toFixed(2);
+            const hp = (kw * 1.34102).toFixed(2);
+
+            document.getElementById('res-torque').textContent = `${torque} Nm`;
+            document.getElementById('res-kw').textContent = `${kw} kW / ${hp} HP`;
+        }
+
+        function runPunchCalc() {
+            const thick = parseFloat(document.getElementById('calc-thick').value) || 0;
+            const perim = parseFloat(document.getElementById('calc-perim').value) || 0;
+            const shear = parseFloat(document.getElementById('calc-shear').value) || 0;
+
+            const forceN = thick * perim * shear;
+            const forceKn = (forceN / 1000).toFixed(1);
+            const tons = (forceN / 9806.65).toFixed(2);
+
+            document.getElementById('res-force-kn').textContent = `${forceKn} kN`;
+            document.getElementById('res-ton').textContent = `${tons} Tons`;
+        }
+
+        function runRoiCalc() {
+            const manual = parseFloat(document.getElementById('calc-manual-min').value) || 0;
+            const auto = parseFloat(document.getElementById('calc-auto-min').value) || 0;
+            const saved = Math.max(0, manual - auto);
+            const gain = manual > 0 ? ((saved / manual) * 100).toFixed(1) : '0';
+
+            document.getElementById('res-saved').textContent = `${saved} Mins`;
+            document.getElementById('res-gain').textContent = `${gain}% Gain`;
+        }
+
+        // --- 7. Modal & Project Filtering Systems ---
+        const reelData = {
+            'reel-1': {
+                title: 'H.V. & L.V. Transformer Winding Machine',
+                company: 'TransM Al-Ojaimi Group (Riyadh) ⚡ — COLLABORATIVE TEAM PROJECT',
+                specs: [
+                    'Cross-functional team engineering project at TransM Al-Ojaimi Group',
+                    'Vishva Role: Core mechanical CAD assembly modeling & tension mechanism design',
+                    'Closed-loop servo tensioning feedback with pitch wire alignment',
+                    'Adjustable coil mandrel width with support tailstock'
+                ],
+                desc: 'Specialized machinery engineered at TransM Al-Ojaimi Group as part of an elite team effort. Vishva developed the parametric 3D CAD modeling, component structural validation, and detail manufacturing drawings in SolidWorks.',
+                img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80'
+            },
+            'reel-2': {
+                title: 'Oil Duct Insulation Making Machine',
+                company: 'TransM Al-Ojaimi Group (Riyadh) ⚡ — COLLABORATIVE TEAM PROJECT',
+                specs: [
+                    'Cross-functional team engineering project at TransM Al-Ojaimi Group',
+                    'Vishva Role: Mechanical strip feed mechanism, die punch sizing, and 3D assembly',
+                    'Continuous insulation duct material feeding line',
+                    'High-tonnage hydraulic shear & punch unit'
+                ],
+                desc: 'Automated duct forming equipment engineered in collaboration with electrical and PLC automation engineers at TransM Al-Ojaimi Group.',
+                img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80'
+            },
+            'reel-3': {
+                title: '10 kg Batch Industrial Hydraulic Press',
+                company: 'Raja Industries (Dindigul) — 1st Practical Experience',
+                specs: [
+                    '10 kg Batch capacity hydraulic ram sizing',
+                    'Double-acting cylinder force verification',
+                    'Rigid welded steel C-frame structure',
+                    'Designed with Solid Edge & AutoCAD'
+                ],
+                desc: 'Foundational practical engineering project built during early career experience at Raja Industries in Dindigul.',
+                img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80'
+            },
+            'reel-4': {
+                title: 'Wood-Fired Automated Dosa Machine',
+                company: 'Raja Industries (Dindigul) — 1st Practical Experience',
+                specs: [
+                    'Rotating heated cast-iron griddle mechanism',
+                    'Automated batter dispensing & spreading arm',
+                    'Thermal wood combustion chamber design',
+                    'Machinery shop floor fabrication & fitting'
+                ],
+                desc: 'Automated food machinery developed during foundational career experience at Raja Industries.',
+                img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80'
+            }
+        };
+
+        let currentReelId = null;
+        function openReelModal(id) {
+            const data = reelData[id];
+            if (!data) return;
+            currentReelId = id;
+            const ids = Object.keys(reelData);
+            document.getElementById('reel-modal-counter').textContent = `${ids.indexOf(id) + 1} / ${ids.length}  ·  ← → keys`;
+            const panel = document.getElementById('reel-modal-panel');
+            panel.classList.remove('modal-pop'); void panel.offsetWidth; panel.classList.add('modal-pop');
+            document.body.style.overflow = 'hidden';
+
+            document.getElementById('reel-modal-content').innerHTML = `
+                <span class="text-xs font-mono text-electricEmerald uppercase tracking-widest font-bold">${data.company}</span>
+                <h3 class="text-2xl font-bold text-white">${data.title}</h3>
+                <div class="h-60 rounded-2xl overflow-hidden bg-obsidianBg border border-electricEmerald/20">
+                    <img src="${data.img}" alt="${data.title}" class="w-full h-full object-cover">
+                </div>
+                <p class="text-gray-300 text-sm leading-relaxed">${data.desc}</p>
+                <div class="bg-obsidianBg p-4 rounded-xl border border-electricEmerald/20 font-mono text-xs">
+                    <span class="text-electricEmerald block mb-2 font-bold">KEY SPECIFICATIONS & ROLE BREAKDOWN:</span>
+                    <ul class="space-y-1.5 text-gray-300">
+                        ${data.specs.map(s => `<li>• ${s}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            document.getElementById('reel-modal').classList.remove('hidden');
+        }
+
+        function closeReelModal() {
+            document.getElementById('reel-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+            currentReelId = null;
+        }
+
+        function stepReelModal(dir) {
+            const ids = Object.keys(reelData);
+            const i = ids.indexOf(currentReelId);
+            if (i < 0) return;
+            playAudio('click');
+            openReelModal(ids[(i + dir + ids.length) % ids.length]);
+        }
+
+        document.getElementById('reel-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'reel-modal') closeReelModal();
+        });
+
+        // Project Category Filter + Live Search
+        let activeCat = 'all';
+        function applyProjectFilter() {
+            const q = document.getElementById('project-search').value.trim().toLowerCase();
+            const cards = document.querySelectorAll('.reel-card');
+            let shown = 0;
+            cards.forEach(card => {
+                const match = (activeCat === 'all' || card.getAttribute('data-category') === activeCat)
+                    && (!q || card.textContent.toLowerCase().includes(q));
+                if (match) {
+                    shown++;
+                    card.style.display = 'flex';
+                    card.classList.remove('card-pop'); void card.offsetWidth; card.classList.add('card-pop');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            document.getElementById('project-count').textContent = `Showing ${shown} of ${cards.length} projects`;
+            document.getElementById('project-empty').classList.toggle('hidden', shown > 0);
+        }
+        document.getElementById('project-search').addEventListener('input', applyProjectFilter);
+
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.cat-btn').forEach(b => {
+                    b.className = 'cat-btn px-4 py-2 rounded-lg font-semibold text-gray-300 hover:text-white transition-all';
+                });
+                btn.className = 'cat-btn active px-4 py-2 rounded-lg font-bold bg-electricEmerald text-obsidianBg transition-all';
+                
+                activeCat = btn.getAttribute('data-cat');
+                applyProjectFilter();
+                playAudio('click');
+            });
+        });
+
+        function showToast(msg, kind) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-in glass-card px-4 py-3 rounded-xl border ' + (kind === 'error' ? 'border-red-400' : 'border-electricEmerald') + ' text-xs font-mono text-white shadow-2xl flex items-center gap-2 pointer-events-auto transition-all duration-300';
+            toast.innerHTML = kind === 'error'
+                ? `<i class="fa-solid fa-triangle-exclamation text-red-400"></i> ${msg}`
+                : `<i class="fa-solid fa-circle-check text-electricEmerald"></i> ${msg}`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function copyToClipboard(text, label) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => showToast(`${label} Copied to Clipboard! ⚡`));
+                return;
+            }
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast(`${label} Copied to Clipboard! ⚡`);
+        }
+
+        async function handleDispatchSubmit(e) {
+            e.preventDefault();
+            playAudio('click');
+            const form = e.target;
+            const btn = document.getElementById('submit-btn');
+            const btnHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.classList.add('opacity-70');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin"></i><span>TRANSMITTING...</span>';
+
+            try {
+                const res = await fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(new FormData(form)).toString()
+                });
+                if (!res.ok) throw new Error(res.status);
+
+                try {
+                    confetti({
+                        particleCount: 120,
+                        spread: 80,
+                        origin: { y: 0.6 },
+                        colors: ['#00FF87', '#00E5FF', '#FFD700']
+                    });
+                } catch (err) {}
+
+                showToast('Message Dispatched Successfully to Vishva! ⚡');
+                form.reset();
+                updateMsgCount();
+            } catch (err) {
+                showToast('Could not send right now — please try WhatsApp or email.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.classList.remove('opacity-70');
+                btn.innerHTML = btnHtml;
+            }
+        }
+
+        const msgField = document.getElementById('msg-field');
+        function updateMsgCount() {
+            document.getElementById('msg-count').textContent = `${msgField.value.length} / 1000`;
+        }
+        msgField.addEventListener('input', updateMsgCount);
+        msgField.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) document.getElementById('contact-form').requestSubmit();
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            playAudio('click');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // 3D Tilt Cards effect
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                card.style.transform = `rotateY(${x / 18}deg) rotateX(${-y / 18}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+            });
+        });
+
+        // --- 8. Scroll Progress, Back-To-Top & Active Nav ---
+        const progressBar = document.getElementById('scroll-progress');
+        const bttBtn = document.getElementById('back-to-top');
+        const bttRing = document.getElementById('btt-ring');
+        const navbar = document.getElementById('navbar');
+        function onScroll() {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = max > 0 ? window.scrollY / max : 0;
+            progressBar.style.width = `${pct * 100}%`;
+            bttRing.style.strokeDashoffset = 131.95 * (1 - pct);
+            const show = window.scrollY > 600;
+            bttBtn.style.opacity = show ? '1' : '0';
+            bttBtn.style.pointerEvents = show ? 'auto' : 'none';
+            navbar.style.transform = (window.scrollY > lastScrollY && window.scrollY > 300) ? 'translateY(-110%)' : 'translateY(0)';
+            lastScrollY = window.scrollY;
+        }
+        let lastScrollY = 0;
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${entry.target.id}`));
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        document.querySelectorAll('section[id]').forEach(sec => sectionObserver.observe(sec));
+
+        // --- 9. Scroll Reveal + Skill Bars ---
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                el.classList.add('revealed');
+                setTimeout(() => { el.style.transitionDelay = ''; }, 900);
+                el.querySelectorAll('.skill-bar').forEach(bar => {
+                    bar.style.transition = 'width 1.4s cubic-bezier(.16,1,.3,1)';
+                    bar.style.width = `${bar.dataset.target}%`;
+                });
+                el.querySelectorAll('.skill-pct').forEach(pctEl => {
+                    const target = +pctEl.dataset.target;
+                    const start = performance.now();
+                    (function tick(now) {
+                        const k = Math.min(1, (now - start) / 1400);
+                        pctEl.textContent = `${Math.round(target * (1 - Math.pow(1 - k, 3)))}%`;
+                        if (k < 1) requestAnimationFrame(tick);
+                    })(start);
+                });
+                revealObserver.unobserve(el);
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach((el, i) => {
+            el.style.transitionDelay = `${(i % 3) * 90}ms`;
+            revealObserver.observe(el);
+        });
+
+        // --- 10. Cursor Hover States & Click Ripples ---
+        document.addEventListener('mouseover', (e) => {
+            document.body.classList.toggle('cursor-hover', !!e.target.closest('a, button, input, textarea, .reel-card, .tilt-card'));
+        });
+        document.addEventListener('click', (e) => {
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const r = document.createElement('span');
+            r.className = 'ripple';
+            r.style.left = `${e.clientX}px`;
+            r.style.top = `${e.clientY}px`;
+            document.body.appendChild(r);
+            setTimeout(() => r.remove(), 600);
+        });
+
+        // Magnetic CTA buttons
+        document.querySelectorAll('#hero a[href^="#"], #submit-btn').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.15}px, ${y * 0.25}px)`;
+            });
+            el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+        });
+
+        // --- 11. Command Palette & Keyboard Shortcuts ---
+        const commands = [
+            { label: 'Go to Home', icon: 'fa-house', run: () => goTo('#hero') },
+            { label: 'Go to 3D CAD Lab', icon: 'fa-cube', run: () => goTo('#cad-studio') },
+            { label: 'Go to Team & Role', icon: 'fa-users', run: () => goTo('#team-synergy') },
+            { label: 'Go to Projects', icon: 'fa-diagram-project', run: () => goTo('#reels') },
+            { label: 'Go to Experience', icon: 'fa-route', run: () => goTo('#timeline') },
+            { label: 'Go to Calculators', icon: 'fa-calculator', run: () => goTo('#workbench') },
+            { label: 'Go to Skills', icon: 'fa-screwdriver-wrench', run: () => goTo('#skills') },
+            { label: 'Go to Contact', icon: 'fa-paper-plane', run: () => goTo('#contact') },
+            { label: 'Copy email address', icon: 'fa-copy', run: () => copyToClipboard('vishvarajendran2002@gmail.com', 'Email Address') },
+            { label: 'Chat on WhatsApp', icon: 'fa-comment', run: () => window.open('https://wa.me/919688877770?text=Hello%20Vishva,%20I%20reviewed%20your%20engineering%20portfolio!', '_blank') },
+            { label: 'Toggle sound effects', icon: 'fa-volume-high', run: () => toggleSound() },
+            { label: '3D Lab: wireframe mode', icon: 'fa-draw-polygon', run: () => { goTo('#cad-studio'); setRenderMode('wireframe'); } },
+            { label: '3D Lab: solid mode', icon: 'fa-cube', run: () => { goTo('#cad-studio'); setRenderMode('solid'); } },
+            { label: '3D Lab: reset camera', icon: 'fa-rotate-left', run: () => { goTo('#cad-studio'); resetCamera(); } },
+            ...Object.keys(reelData).map(id => ({ label: `Open project: ${reelData[id].title}`, icon: 'fa-folder-open', run: () => openReelModal(id) }))
+        ];
+        const palette = document.getElementById('cmd-palette');
+        const cmdInput = document.getElementById('cmd-input');
+        const cmdList = document.getElementById('cmd-list');
+        let cmdFiltered = commands, cmdSel = 0;
+
+        function goTo(hash) { document.querySelector(hash).scrollIntoView({ behavior: 'smooth' }); }
+
+        function renderCommands() {
+            const q = cmdInput.value.trim().toLowerCase();
+            cmdFiltered = commands.filter(c => c.label.toLowerCase().includes(q));
+            cmdSel = Math.min(cmdSel, Math.max(0, cmdFiltered.length - 1));
+            cmdList.innerHTML = cmdFiltered.length ? cmdFiltered.map((c, i) => `
+                <li data-i="${i}" class="${i === cmdSel ? 'selected ' : ''}flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 cursor-pointer">
+                    <i class="fa-solid ${c.icon} w-4 text-electricEmerald"></i><span>${c.label}</span>
+                </li>`).join('') : '<li class="px-3 py-6 text-center text-gray-500">No matching commands</li>';
+            const sel = cmdList.querySelector('.selected');
+            if (sel) sel.scrollIntoView({ block: 'nearest' });
+        }
+        function openPalette() {
+            palette.classList.remove('hidden');
+            palette.classList.add('flex');
+            cmdInput.value = '';
+            cmdSel = 0;
+            renderCommands();
+            setTimeout(() => cmdInput.focus(), 10);
+            playAudio('click');
+        }
+        function closePalette() {
+            palette.classList.add('hidden');
+            palette.classList.remove('flex');
+        }
+        function runCommand(i) {
+            const c = cmdFiltered[i];
+            if (!c) return;
+            closePalette();
+            playAudio('click');
+            c.run();
+        }
+        cmdInput.addEventListener('input', () => { cmdSel = 0; renderCommands(); });
+        cmdList.addEventListener('click', (e) => {
+            const li = e.target.closest('li[data-i]');
+            if (li) runCommand(+li.dataset.i);
+        });
+        cmdList.addEventListener('mousemove', (e) => {
+            const li = e.target.closest('li[data-i]');
+            if (li && +li.dataset.i !== cmdSel) { cmdSel = +li.dataset.i; renderCommands(); }
+        });
+        palette.addEventListener('click', (e) => { if (e.target === palette) closePalette(); });
+
+        document.addEventListener('keydown', (e) => {
+            const typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName);
+            const paletteOpen = !palette.classList.contains('hidden');
+
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                paletteOpen ? closePalette() : openPalette();
+                return;
+            }
+            if (paletteOpen) {
+                if (e.key === 'Escape') closePalette();
+                else if (e.key === 'ArrowDown') { e.preventDefault(); cmdSel = (cmdSel + 1) % Math.max(1, cmdFiltered.length); renderCommands(); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); cmdSel = (cmdSel - 1 + cmdFiltered.length) % Math.max(1, cmdFiltered.length); renderCommands(); }
+                else if (e.key === 'Enter') { e.preventDefault(); runCommand(cmdSel); }
+                return;
+            }
+            if (currentReelId) {
+                if (e.key === 'Escape') closeReelModal();
+                else if (e.key === 'ArrowRight') stepReelModal(1);
+                else if (e.key === 'ArrowLeft') stepReelModal(-1);
+                return;
+            }
+            if (typing) return;
+            if (e.key === '/') { e.preventDefault(); goTo('#reels'); setTimeout(() => document.getElementById('project-search').focus(), 500); }
+            else if (e.key === '?') showToast('Shortcuts: Ctrl+K palette · / search projects · M sound · Esc close');
+            else if (e.key.toLowerCase() === 'm') toggleSound();
+        });
+
+        window.onload = function () {
+            initCadStudio();
+            runTorqueCalc();
+            runPunchCalc();
+            runRoiCalc();
+            onScroll();
+            setTimeout(() => showToast('Tip: press Ctrl + K to explore the portfolio ⚡'), 2500);
+        };
+    </script>
+</body>
+</html>
